@@ -30,13 +30,13 @@ def detect_changes():
         # Compare and alert
         if len(instances) > len(last_state.get('instances', [])):
             print("New EC2 instance detected!")
-            else:
-                print("No New EC2 instance detected!")
+        else:
+            print("No New EC2 instance detected!")
         
         if len(buckets) > len(last_state.get('buckets', [])):
             print("New S3 bucket detected!")
-            else:
-                print("No New S3 bucket detected!")
+        else:
+            print("No New S3 bucket detected!")
 
         # Update state
         with open('last_state.json', 'w') as f:
