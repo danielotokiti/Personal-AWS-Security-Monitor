@@ -28,15 +28,18 @@ def detect_changes():
             last_state = json.load(f)
         
         # Compare and alert
-        if len(instances) > len(last_state.get('instances', [])):
-            print("New EC2 instance detected!")
-        else:
-            print("No New EC2 instance detected!")
-        
-        if len(buckets) > len(last_state.get('buckets', [])):
-            print("New S3 bucket detected!")
-        else:
-            print("No New S3 bucket detected!")
+        last_instance_ids = {i['Instances'][0]['InstanceId'] for i in last_state.get('instances', [])}
+        current_instance_ids = {i['Instances'][0]['InstanceId'] for i in instances}
+
+        new_instances = current_instance_ids - last_instance_ids
+        removed_instances = last_instance_ids - current_instance_ids
+
+        if new_instances:
+            print(f"New EC2 instance(s) detected: {', '.join(new_instances)}")
+        if removed_instances:
+            print(f"EC2 instance(s) removed: {', '.join(removed_instances)}")
+        if not new_instances and not removed_instances:
+            print("No EC2 instance changes detected.")
 
         # Update state
         with open('last_state.json', 'w') as f:

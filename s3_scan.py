@@ -16,7 +16,7 @@ def audit_all_s3_buckets():
 
     for bucket in buckets:
         bucket_name = bucket['Name']
-        print(f"\n Auditing bucket: {bucket_name}")
+        print(f"\nAuditing bucket: {bucket_name}")
 
         # Check for public ACLs
         try:
