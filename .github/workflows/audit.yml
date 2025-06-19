@@ -1,5 +1,6 @@
 name: Daily AWS Audit
 on:
+  workflow_dispatch:
   schedule:
     - cron: '0 12 * * *'  # 8 AM Toronto (12 PM UTC)
     - cron: '0 16 * * *'  # 12 PM Toronto (12 PM UTC)
