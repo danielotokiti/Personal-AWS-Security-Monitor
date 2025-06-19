@@ -1,0 +1,17 @@
+name: Daily AWS Audit
+on:
+  schedule:
+    - cron: '0 12 * * *'  # 8 AM Toronto (12 PM UTC)
+    - cron: '0 16 * * *'  # 12 PM Toronto (12 PM UTC)
+    - cron: '0 19 * * *'  # 3 PM Toronto (7 PM UTC)
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+      - run: pip install boto3
+      - run: python3 s3_audit.py
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_KEY }}
