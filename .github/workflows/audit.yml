@@ -11,6 +11,8 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
       - run: pip install boto3
       - run: python3 s3_scan.py
       - run: python3 change_detctor.py
